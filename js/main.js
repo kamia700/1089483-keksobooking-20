@@ -4,7 +4,6 @@ var ELEMENTS_NUMBER = 8;
 
 var Y_TOP = 130;
 var Y_BOTTOM = 630;
-var X_MAX = 1200;
 
 var PIN_SHIFT_X = 25;
 var PIN_SHIFT_Y = 35;
@@ -24,6 +23,12 @@ var PHOTOS = [
 var ROOMS = ['1', '2', '3 ', '100'];
 var GUESTS = ['1', '2', '3 '];
 
+var pinMap = document.querySelector('.map__pins');
+var similarPinTemplate = document.querySelector('#pin')
+.content
+.querySelector('.map__pin');
+
+var pinMapWidth = pinMap.offsetWidth;
 
 function getRandomIntInclusive(min, max) {
   min = Math.ceil(min);
@@ -37,7 +42,7 @@ var getRandomElement = function (arr) {
 };
 
 var createAds = function (count) {
-  var locationX = getRandomIntInclusive(0, X_MAX);
+  var locationX = getRandomIntInclusive(0, pinMapWidth);
   var locationY = getRandomIntInclusive(Y_TOP, Y_BOTTOM);
   var ads = {
     author: {
@@ -74,10 +79,6 @@ var getOffers = function () {
 
 document.querySelector('.map').classList.remove('map--faded');
 
-var pin = document.querySelector('.map__pins');
-var similarPinTemplate = document.querySelector('#pin')
-.content
-.querySelector('.map__pin');
 
 var renderPin = function (ads) {
   var pinElement = similarPinTemplate.cloneNode(true);
@@ -98,7 +99,7 @@ var addPins = function (offers) {
   for (var j = 0; j < offers.length; j++) {
     fragment.appendChild(renderPin(offers[j]));
   }
-  pin.appendChild(fragment);
+  pinMap.appendChild(fragment);
 };
 
 var offers = getOffers();
