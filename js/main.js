@@ -30,12 +30,12 @@ var similarPinTemplate = document.querySelector('#pin')
 
 var pinMapWidth = pinMap.offsetWidth;
 
-function getRandomIntInclusive(min, max) {
+var getRandomIntInclusive = function (min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
   var randNum = Math.floor(Math.random() * (max - min + 1)) + min;
   return randNum;
-}
+};
 
 var getRandomElement = function (arr) {
   return arr[Math.floor(Math.random() * arr.length)];
@@ -76,10 +76,6 @@ var getOffers = function () {
   return offersArr;
 };
 
-
-document.querySelector('.map').classList.remove('map--faded');
-
-
 var renderPin = function (ads) {
   var pinElement = similarPinTemplate.cloneNode(true);
 
@@ -103,4 +99,6 @@ var addPins = function (offers) {
 };
 
 var offers = getOffers();
+
+document.querySelector('.map').classList.remove('map--faded');
 addPins(offers);
