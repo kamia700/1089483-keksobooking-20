@@ -168,7 +168,7 @@ var renderPhotos = function (container, photos) {
 //   return imgPhoto;
 // };
 
-// тут функция отрабатывает через раз. Не найти причину
+// тут функция отрабатывает через раз
 // выдает ошибку InvalidCharacterError: String contains an invalid character main.js:225
 
 var renderFeatures = function (container, features) {
@@ -202,7 +202,7 @@ var renderCard = function (ads) {
 
   var cardFeatures = cardElement.querySelector('.popup__features');
   cardFeatures.innerHTML = '';
-  // если выводжу текст, массива генерится в случайном порядке и отображается.
+  // если вывожу текстом, массив генерится в случайном порядке и отображается.
   // с иконками работает через раз
   // cardFeatures.textContent = ads.offer.features;
   renderFeatures(cardFeatures, ads.offer.features);
