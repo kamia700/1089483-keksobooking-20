@@ -121,7 +121,7 @@ var addPins = function (offers) {
 var offers = getOffers();
 
 document.querySelector('.map').classList.remove('map--faded');
-addPins(offers);
+// addPins(offers);
 
 
 var cardTemplate = document.querySelector('#card')
@@ -283,11 +283,13 @@ var mapPinMainMousedownHandler = function (evt) {
 
     getCoordinates(PIN_HEIGHT);
   }
+  mapPinMain.removeEventListener('mousedown', mapPinMainMousedownHandler);
+  mapPinMain.removeEventListener('keydown', mapPinMainMousedownHandler);
 };
 
 mapPinMain.addEventListener('mousedown', mapPinMainMousedownHandler);
-mapPinMain.removeEventListener('click', mapPinMainMousedownHandler);
 mapPinMain.addEventListener('keydown', mapPinMainKeydownHandler);
+
 var mapPinMainKeydownHandler = function (evt) {
   if (evt.key === 'Enter') {
     setActivedModePage();
@@ -335,7 +337,9 @@ var adFormPriceInput = noticeBlock.querySelector('#price');
 
 var priceInputHandler = function () {
   var number = adFormPriceInput.value;
-  if (number > 1000000) {
+  if (adFormPriceInput.validity.badInput) {
+    adFormPriceInput.setCustomValidity('Пожалуйста, укажите числовое значение');
+  } else if (number > 1000000) {
     adFormPriceInput.setCustomValidity('Максимальное значение не может превышать 1000000');
   } else {
     adFormPriceInput.setCustomValidity('');
