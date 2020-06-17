@@ -211,8 +211,6 @@ var renderCard = function (ads) {
   return cardElement;
 };
 
-map.insertBefore(renderCard(offers[7]), filtersContainer);
-
 var adForm = document.querySelector('.ad-form');
 var adFieldsets = adForm.querySelectorAll('fieldset');
 var adInputs = adForm.querySelectorAll('input');
@@ -249,6 +247,7 @@ var activateFields = function () {
   activateElements(adInputs);
   activateElements(adSelects);
   activateElements(mapFilters);
+  map.insertBefore(renderCard(offers[1]), filtersContainer);
 };
 
 var address = document.querySelector('#address');
@@ -287,15 +286,14 @@ var mapPinMainMousedownHandler = function (evt) {
   mapPinMain.removeEventListener('keydown', mapPinMainMousedownHandler);
 };
 
-mapPinMain.addEventListener('mousedown', mapPinMainMousedownHandler);
-mapPinMain.addEventListener('keydown', mapPinMainKeydownHandler);
-
 var mapPinMainKeydownHandler = function (evt) {
   if (evt.key === 'Enter') {
     setActivedModePage();
   }
-  address.value = getCoordinates(PIN_SHIFT_X, PIN_HEIGHT);
 };
+
+mapPinMain.addEventListener('mousedown', mapPinMainMousedownHandler);
+mapPinMain.addEventListener('keydown', mapPinMainKeydownHandler);
 
 var noticeBlock = document.querySelector('.notice');
 var roomsSelect = noticeBlock.querySelector('#room_number');
