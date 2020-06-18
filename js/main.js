@@ -7,7 +7,11 @@ var Y_BOTTOM = 630;
 
 var PIN_SHIFT_X = 25;
 var PIN_SHIFT_Y = 35;
-var PIN_HEIGHT = 70;
+
+var PIN_MAIN_HEIGHT = 65;
+var PIN_MAIN_WIDTH = 65;
+var PIN_MAIN_SHIFT_Y = PIN_MAIN_HEIGHT / 2;
+
 
 var TYPE = ['palace', 'flat', 'house', 'bungalo'];
 
@@ -94,6 +98,11 @@ var getOffers = function () {
   return offersArr;
 };
 
+var getCard = function (ads) {
+  closeCard();
+  map.insertBefore(renderCard(ads), filtersContainer);
+};
+
 var renderPin = function (ads) {
   var pinElement = similarPinTemplate.cloneNode(true);
 
@@ -105,6 +114,11 @@ var renderPin = function (ads) {
   pinImg.src = ads.author.avatar;
   pinImg.alt = ads.offer.title;
 
+  pinElement.addEventListener('click', function () {
+    getCard(ads);
+
+    document.addEventListener('keydown', popupCloseEscHandler);
+  });
   return pinElement;
 };
 
@@ -186,6 +200,26 @@ var generateCorrectText = function (rooms, guests) {
   return text;
 };
 
+var closeCard = function () {
+  var mapCardPopup = document.querySelector('.map__card');
+  if (mapCardPopup) {
+    mapCardPopup.remove();
+  }
+};
+
+var popupCloseMousedownHandler = function (evt) {
+  if (evt.button === 0) {
+    closeCard();
+  }
+};
+
+var popupCloseEscHandler = function (evt) {
+  if (evt.key === 'Escape') {
+    evt.preventDefault();
+    closeCard();
+  }
+};
+
 var renderCard = function (ads) {
   var cardElement = cardTemplate.cloneNode(true);
 
@@ -207,6 +241,8 @@ var renderCard = function (ads) {
   renderPhotos(cardPhotos, ads.offer.photos);
 
   cardElement.querySelector('.popup__avatar').src = ads.author.avatar;
+  var closeButton = cardElement.querySelector('.popup__close');
+  closeButton.addEventListener('click', popupCloseMousedownHandler);
 
   return cardElement;
 };
@@ -247,19 +283,20 @@ var activateFields = function () {
   activateElements(adInputs);
   activateElements(adSelects);
   activateElements(mapFilters);
-  map.insertBefore(renderCard(offers[1]), filtersContainer);
+  // map.insertBefore(renderCard(offers[1]), filtersContainer);
 };
 
 var address = document.querySelector('#address');
+
 var getCoordinates = function (shiftY) {
-  var x = mapPinMain.offsetLeft - PIN_SHIFT_X;
+  var x = mapPinMain.offsetLeft - PIN_MAIN_WIDTH;
   var y = mapPinMain.offsetTop - shiftY;
   address.value = x + ', ' + y;
   return address.value;
 };
 
 var setDisabledModePage = function () {
-  getCoordinates(PIN_SHIFT_Y);
+  getCoordinates(PIN_MAIN_SHIFT_Y);
   map.classList.add('map--faded');
   adForm.classList.add('ad-form--disabled');
   disableFields();
@@ -273,14 +310,13 @@ var setActivedModePage = function () {
   activateFields();
   mapFilters.removeAttribute('disabled');
   activateMap(map);
+  getCoordinates(PIN_MAIN_HEIGHT);
 };
 
 
 var mapPinMainMousedownHandler = function (evt) {
   if (evt.button === 0) {
     setActivedModePage();
-
-    getCoordinates(PIN_HEIGHT);
   }
   mapPinMain.removeEventListener('mousedown', mapPinMainMousedownHandler);
   mapPinMain.removeEventListener('keydown', mapPinMainMousedownHandler);
@@ -298,6 +334,7 @@ mapPinMain.addEventListener('keydown', mapPinMainKeydownHandler);
 var noticeBlock = document.querySelector('.notice');
 var roomsSelect = noticeBlock.querySelector('#room_number');
 var guestsSelect = noticeBlock.querySelector('#capacity');
+var adFormTitleInput = noticeBlock.querySelector('#title');
 
 
 var roomsInputHandler = function () {
@@ -314,9 +351,6 @@ var roomsInputHandler = function () {
 
 roomsSelect.addEventListener('change', roomsInputHandler);
 
-
-var adFormTitleInput = noticeBlock.querySelector('#title');
-
 var titleInputHandler = function () {
   if (adFormTitleInput.validity.tooShort) {
     adFormTitleInput.setCustomValidity('Заголовок объявления должен состоять минимум из 30-ти символов');
@@ -332,15 +366,43 @@ adFormTitleInput.addEventListener('input', titleInputHandler);
 
 
 var adFormPriceInput = noticeBlock.querySelector('#price');
+var PRICE_MIN_VALUE = {
+  'bungalo': 0,
+  'flat': 1000,
+  'house': 5000,
+  'palace': 10000
+};
 
 var priceInputHandler = function () {
-  var number = adFormPriceInput.value;
+  var adFormTypeInput = noticeBlock.querySelector('#type');
+  var price = adFormPriceInput.value;
+
+  adFormPriceInput.min = PRICE_MIN_VALUE[adFormTypeInput.value];
+  adFormPriceInput.placeholder = adFormPriceInput.min;
+
   if (adFormPriceInput.validity.badInput) {
     adFormPriceInput.setCustomValidity('Пожалуйста, укажите числовое значение');
-  } else if (number > 1000000) {
+  } else if (price > 1000000) {
     adFormPriceInput.setCustomValidity('Максимальное значение не может превышать 1000000');
+  } else if (adFormPriceInput.validity.rangeUnderflow) {
+    adFormPriceInput.setCustomValidity('Минимальная цена на этот тип жилья составляет ' + adFormPriceInput.min + 'руб.');
   } else {
     adFormPriceInput.setCustomValidity('');
   }
 };
+
 adFormPriceInput.addEventListener('input', priceInputHandler);
+address.setAttribute('readonly', 'readonly');
+
+var timeIn = noticeBlock.querySelector('#timein');
+var timeOut = noticeBlock.querySelector('#timeout');
+var timefieldset = noticeBlock.querySelector('.ad-form__element--time');
+
+var timeSyncHandler = function (evt) {
+  if (evt.target === timeIn) {
+    timeOut.value = timeIn.value;
+  } else {
+    timeIn.value = timeOut.value;
+  }
+};
+timefieldset.addEventListener('change', timeSyncHandler);
