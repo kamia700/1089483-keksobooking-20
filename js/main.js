@@ -32,6 +32,13 @@ var WIDTH_PHOTO_CARD = 45;
 var HEIGHT_PHOTO_CARD = 40;
 var PHOTO_ALT_CARD = 'Фотография жилья';
 
+var PRICE_MIN_VALUE = {
+  'bungalo': 0,
+  'flat': 1000,
+  'house': 5000,
+  'palace': 10000
+};
+
 var pinMap = document.querySelector('.map__pins');
 var similarPinTemplate = document.querySelector('#pin')
 .content
@@ -135,7 +142,6 @@ var addPins = function (offers) {
 var offers = getOffers();
 
 document.querySelector('.map').classList.remove('map--faded');
-// addPins(offers);
 
 
 var cardTemplate = document.querySelector('#card')
@@ -365,12 +371,6 @@ adFormTitleInput.addEventListener('input', titleInputHandler);
 
 
 var adFormPriceInput = noticeBlock.querySelector('#price');
-var PRICE_MIN_VALUE = {
-  'bungalo': 0,
-  'flat': 1000,
-  'house': 5000,
-  'palace': 10000
-};
 
 var priceInputHandler = function () {
   var adFormTypeInput = noticeBlock.querySelector('#type');
