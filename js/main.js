@@ -10,7 +10,7 @@ var PIN_SHIFT_Y = 35;
 
 var PIN_MAIN_HEIGHT = 65;
 var PIN_MAIN_WIDTH = 65;
-var PIN_MAIN_SHIFT_Y = PIN_MAIN_HEIGHT / 2;
+var PIN_MAIN_SHIFT_Y = Math.round(PIN_MAIN_HEIGHT / 2);
 
 
 var TYPE = ['palace', 'flat', 'house', 'bungalo'];
@@ -105,9 +105,9 @@ var getOffers = function () {
   return offersArr;
 };
 
-var getCard = function (ads) {
+var renderCard = function (ads) {
   closeCard();
-  map.insertBefore(renderCard(ads), filtersContainer);
+  map.insertBefore(getCard(ads), filtersContainer);
 };
 
 var renderPin = function (ads) {
@@ -122,7 +122,7 @@ var renderPin = function (ads) {
   pinImg.alt = ads.offer.title;
 
   pinElement.addEventListener('click', function () {
-    getCard(ads);
+    renderCard(ads);
 
     document.addEventListener('keydown', popupCloseEscHandler);
   });
@@ -226,7 +226,7 @@ var popupCloseEscHandler = function (evt) {
   }
 };
 
-var renderCard = function (ads) {
+var getCard = function (ads) {
   var cardElement = cardTemplate.cloneNode(true);
 
   cardElement.querySelector('.popup__title').textContent = ads.offer.title;
@@ -293,15 +293,15 @@ var activateFields = function () {
 
 var address = document.querySelector('#address');
 
-var getCoordinates = function (shiftY) {
-  var x = mapPinMain.offsetLeft - PIN_MAIN_WIDTH / 2;
+var setCoordinates = function (shiftY) {
+  var x = Math.round(mapPinMain.offsetLeft - PIN_MAIN_WIDTH / 2);
   var y = mapPinMain.offsetTop - shiftY;
   address.value = x + ', ' + y;
   return address.value;
 };
 
 var setDisabledModePage = function () {
-  getCoordinates(PIN_MAIN_SHIFT_Y);
+  setCoordinates(PIN_MAIN_SHIFT_Y);
   map.classList.add('map--faded');
   adForm.classList.add('ad-form--disabled');
   disableFields();
@@ -315,7 +315,7 @@ var setActivedModePage = function () {
   activateFields();
   mapFilters.removeAttribute('disabled');
   activateMap(map);
-  getCoordinates(PIN_MAIN_HEIGHT);
+  setCoordinates(PIN_MAIN_HEIGHT);
 };
 
 
@@ -373,11 +373,7 @@ adFormTitleInput.addEventListener('input', titleInputHandler);
 var adFormPriceInput = noticeBlock.querySelector('#price');
 
 var priceInputHandler = function () {
-  var adFormTypeInput = noticeBlock.querySelector('#type');
   var price = adFormPriceInput.value;
-
-  adFormPriceInput.min = PRICE_MIN_VALUE[adFormTypeInput.value];
-  adFormPriceInput.placeholder = adFormPriceInput.min;
 
   if (adFormPriceInput.validity.badInput) {
     adFormPriceInput.setCustomValidity('Пожалуйста, укажите числовое значение');
@@ -390,6 +386,14 @@ var priceInputHandler = function () {
   }
 };
 
+var adFormTypeInput = noticeBlock.querySelector('#type');
+
+var typeInputHandler = function () {
+  adFormPriceInput.min = PRICE_MIN_VALUE[adFormTypeInput.value];
+  adFormPriceInput.placeholder = adFormPriceInput.min;
+};
+
+adFormTypeInput.addEventListener('input', typeInputHandler);
 adFormPriceInput.addEventListener('input', priceInputHandler);
 address.setAttribute('readonly', 'readonly');
 
