@@ -283,13 +283,12 @@ var activateFields = function () {
   activateElements(adInputs);
   activateElements(adSelects);
   activateElements(mapFilters);
-  // map.insertBefore(renderCard(offers[1]), filtersContainer);
 };
 
 var address = document.querySelector('#address');
 
 var getCoordinates = function (shiftY) {
-  var x = mapPinMain.offsetLeft - PIN_MAIN_WIDTH;
+  var x = mapPinMain.offsetLeft - PIN_MAIN_WIDTH / 2;
   var y = mapPinMain.offsetTop - shiftY;
   address.value = x + ', ' + y;
   return address.value;
