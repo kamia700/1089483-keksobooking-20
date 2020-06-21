@@ -14,7 +14,7 @@
   var adInputs = adForm.querySelectorAll('input');
   var adSelects = adForm.querySelectorAll('select');
   var mapFilters = document.querySelector('.map__filters');
-  var mapPinMain = document.querySelector('.map__pin--main');
+  // var mapPinMain = document.querySelector('.map__pin--main');
 
   var disableElements = function (element) {
     for (var i = 0; i < element.length; i++) {
@@ -44,9 +44,7 @@
 
   var address = document.querySelector('#address');
 
-  var setCoordinates = function (shiftY) {
-    var x = Math.round(mapPinMain.offsetLeft - PIN_MAIN_WIDTH / 2);
-    var y = mapPinMain.offsetTop - shiftY;
+  var setCoordinates = function (x, y) {
     address.value = x + ', ' + y;
     return address.value;
   };
