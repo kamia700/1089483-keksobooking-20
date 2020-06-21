@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-  var PIN_MAIN_WIDTH = 65;
   var PRICE_MIN_VALUE = {
     'bungalo': 0,
     'flat': 1000,
