@@ -45,20 +45,24 @@
 
   var mapPinMainMousedownHandler = function (evt) {
     window.util.isLeftButtonEvent(evt, setActivedModePage);
+
     mapPinMain.removeEventListener('mousedown', mapPinMainMousedownHandler);
-    mapPinMain.removeEventListener('keydown', mapPinMainMousedownHandler);
-    mapPinMain.addEventListener('mousedown', mouseDownHandler);
   };
 
   var mapPinMainKeydownHandler = function (evt) {
     window.util.isEnterEvent(evt, setActivedModePage);
+
+    mapPinMain.removeEventListener('keydown', mapPinMainMousedownHandler);
   };
 
+  mapPinMain.addEventListener('mousedown', mapPinMainMousedownHandler);
+  mapPinMain.addEventListener('keydown', mapPinMainKeydownHandler);
+
   var limits = {
-    top: window.map.map.offsetTop,
-    bottom: window.map.map.offsetHeight - mapPinMain.offsetHeight,
-    left: 0,
-    right: window.map.map.offsetWidth - mapPinMain.offsetWidth,
+    top: window.map.MAP_TOP_Y,
+    bottom: window.map.MAP_BOTTOM_Y,
+    left: 0 - Math.round(mapPinMain.offsetWidth / 2),
+    right: window.map.map.offsetWidth - Math.round(mapPinMain.offsetWidth / 2),
   };
 
   var mouseDownHandler = function (evt) {
@@ -100,6 +104,7 @@
       mapPinMain.style.top = pinCoords.y + 'px';
       mapPinMain.style.left = pinCoords.x + 'px';
 
+      window.form.setCoordinates(pinCoords.x, pinCoords.y);
     };
 
     var mouseUpHandler = function (upEvt) {
@@ -107,8 +112,6 @@
 
       document.removeEventListener('mousemove', mouseMoveHandler);
       document.removeEventListener('mouseup', mouseUpHandler);
-
-      window.form.setCoordinates(pinCoords.x, pinCoords.y);
     };
 
     document.addEventListener('mousemove', mouseMoveHandler);
@@ -116,14 +119,11 @@
 
   };
 
-  mapPinMain.addEventListener('mousedown', mapPinMainMousedownHandler);
-  mapPinMain.addEventListener('keydown', mapPinMainKeydownHandler);
+  mapPinMain.addEventListener('mousedown', mouseDownHandler);
 
   window.main = {
     mapFilters: mapFilters,
     mapPinMain: mapPinMain,
-    // activateFields: activateFields,
-    // activeMode: activeMode,
   };
 })();
 
