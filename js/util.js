@@ -31,11 +31,25 @@
     }
   };
 
+  var getMultipleRandomElements = function (array, n) {
+    var originalArray = array;
+    var modifiedArray = [];
+    for (var i = 0; i < n; i++) {
+      var element = window.util.getRandomElement(originalArray);
+      modifiedArray.push(element);
+      var index = originalArray.indexOf(element);
+      originalArray.splice(index, 1);
+    }
+
+    return modifiedArray;
+  };
+
   window.util = {
     getRandomElement: getRandomElement,
     getRandomIntInclusive: getRandomIntInclusive,
     isEscEvent: isEscEvent,
     isEnterEvent: isEnterEvent,
     isLeftButtonEvent: isLeftButtonEvent,
+    getMultipleRandomElements: getMultipleRandomElements,
   };
 })();
