@@ -65,18 +65,24 @@
     return ads;
   };
 
-  var getOffers = function () {
-    var offersArr = [];
-    for (var i = 0; i < ELEMENTS_NUMBER; i++) {
-      offersArr[i] = (createAds(i));
-    }
-    return offersArr;
+  // var getOffers = function () {
+  //   var offersArr = [];
+  //   for (var i = 0; i < ELEMENTS_NUMBER; i++) {
+  //     offersArr[i] = (createAds(i));
+  //   }
+  //   return offersArr;
+  // };
+
+  // var offers = getOffers();
+
+  var getOffers = function (data) {
+    var offers = window.util.getMultipleRandomElements(data, ELEMENTS_NUMBER);
+    return offers;
   };
 
-  var offers = getOffers();
-
-
   window.data = {
-    offers: offers,
+    // offers: offers,
+    getOffers: getOffers,
+    createAds: createAds,
   };
 })();

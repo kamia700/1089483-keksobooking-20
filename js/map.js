@@ -8,7 +8,6 @@
 
   var activateMap = function (mapblock) {
     mapblock.classList.remove('map--faded');
-    window.pin.addPins(window.data.offers);
   };
 
 
