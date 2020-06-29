@@ -73,13 +73,14 @@
   formResetButton.addEventListener('click', pageReset);
   formResetButton.addEventListener('keydown', pageReset);
 
+  // без setDisabledModePage(); ESC работает
   var successPostHandler = function () {
     window.message.showMessage('success');
 
     document.addEventListener('click', window.message.closeMessage);
     document.addEventListener('keydown', window.message.closeMessage);
-    setDisabledModePage();
     pageReset();
+    setDisabledModePage();
   };
 
   var errorPostHandler = function () {
