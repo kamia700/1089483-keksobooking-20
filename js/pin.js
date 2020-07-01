@@ -35,8 +35,6 @@
 
     pinElement.addEventListener('click', function () {
       window.card.renderCard(ads);
-
-      document.addEventListener('keydown', window.card.popupCloseEscHandler);
     });
     return pinElement;
   };
