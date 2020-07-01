@@ -44,7 +44,7 @@
   var address = document.querySelector('#address');
 
   var setCoordinates = function (x, y) {
-    address.value = x + ', ' + y;
+    address.setAttribute('value', x + ', ' + y);
     return address.value;
   };
 
@@ -126,5 +126,6 @@
     setCoordinates: setCoordinates,
     disableFields: disableFields,
     activateFields: activateFields,
+    adForm: adForm,
   };
 })();

@@ -95,6 +95,8 @@
     var closeButton = cardElement.querySelector('.popup__close');
     closeButton.addEventListener('click', popupCloseMousedownHandler);
 
+    document.addEventListener('keydown', popupCloseEscHandler);
+
     return cardElement;
   };
 
@@ -109,10 +111,14 @@
 
   var popupCloseMousedownHandler = function (evt) {
     window.util.isLeftButtonEvent(evt, closeCard);
+
+    document.removeEventListener('keydown', popupCloseMousedownHandler);
   };
 
   var popupCloseEscHandler = function (evt) {
     window.util.isEscEvent(evt, closeCard);
+
+    document.removeEventListener('keydown', popupCloseEscHandler);
   };
 
 

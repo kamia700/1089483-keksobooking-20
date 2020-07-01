@@ -4,6 +4,17 @@
   var PIN_SHIFT_X = 25;
   var PIN_SHIFT_Y = 35;
 
+  var mainPinDefault = {
+    x: 570,
+    y: 375
+  };
+
+  var mapPinMain = document.querySelector('.map__pin--main');
+  var setPinMainDefoltCoords = function () {
+    mapPinMain.style.left = mainPinDefault.x + 'px';
+    mapPinMain.style.top = mainPinDefault.y + 'px';
+  };
+
   var similarPinTemplate = document.querySelector('#pin')
 .content
 .querySelector('.map__pin');
@@ -24,8 +35,6 @@
 
     pinElement.addEventListener('click', function () {
       window.card.renderCard(ads);
-
-      document.addEventListener('keydown', window.card.popupCloseEscHandler);
     });
     return pinElement;
   };
@@ -40,7 +49,16 @@
     pinMap.appendChild(fragment);
   };
 
+  var removePins = function () {
+    var pins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+    for (var j = 0; j < pins.length; j++) {
+      pins[j].remove();
+    }
+  };
+
   window.pin = {
     addPins: addPins,
+    setPinMainDefoltCoords: setPinMainDefoltCoords,
+    removePins: removePins,
   };
 })();
