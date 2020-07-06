@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var ELEMENTS_NUMBER = 8;
+  var ELEMENTS_NUMBER = 5;
 
   var Y_TOP = 130;
   var Y_BOTTOM = 630;
@@ -65,24 +65,15 @@
     return ads;
   };
 
-  // var getOffers = function () {
-  //   var offersArr = [];
-  //   for (var i = 0; i < ELEMENTS_NUMBER; i++) {
-  //     offersArr[i] = (createAds(i));
-  //   }
-  //   return offersArr;
-  // };
-
-  // var offers = getOffers();
-
   var getOffers = function (data) {
-    var offers = window.util.getMultipleRandomElements(data, ELEMENTS_NUMBER);
+    var takeNumber = data.length > ELEMENTS_NUMBER ? ELEMENTS_NUMBER : data.length;
+    var offers = window.util.getMultipleRandomElements(data, takeNumber);
     return offers;
   };
 
   window.data = {
-    // offers: offers,
     getOffers: getOffers,
     createAds: createAds,
+    ELEMENTS_NUMBER: ELEMENTS_NUMBER
   };
 })();

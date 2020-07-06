@@ -37,8 +37,6 @@
     for (var i = 0; i < n; i++) {
       var element = window.util.getRandomElement(originalArray);
       modifiedArray.push(element);
-      var index = originalArray.indexOf(element);
-      originalArray.splice(index, 1);
     }
 
     return modifiedArray;

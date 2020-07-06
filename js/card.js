@@ -74,12 +74,12 @@
   var getCard = function (ads) {
     var cardElement = cardTemplate.cloneNode(true);
 
-    cardElement.querySelector('.popup__title').textContent = ads.offer.title;
-    cardElement.querySelector('.popup__text--address').textContent = ads.offer.address;
-    cardElement.querySelector('.popup__text--price').textContent = ads.offer.price + '₽/ночь';
-    cardElement.querySelector('.popup__type').textContent = housingTypes[ads.offer.type];
-    cardElement.querySelector('.popup__text--capacity').textContent = generateCorrectText(ads.offer.rooms, ads.offer.guests);
-    cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + ads.offer.checkin + ', выезд до ' + ads.offer.checkout;
+    cardElement.querySelector('.popup__title').textContent = ads.offer.title || 'no value';
+    cardElement.querySelector('.popup__text--address').textContent = ads.offer.address || 'no value';
+    cardElement.querySelector('.popup__text--price').textContent = ads.offer.price + '₽/ночь' || 'no value';
+    cardElement.querySelector('.popup__type').textContent = housingTypes[ads.offer.type] || 'no value';
+    cardElement.querySelector('.popup__text--capacity').textContent = generateCorrectText(ads.offer.rooms, ads.offer.guests) || 'no value';
+    cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + ads.offer.checkin + ', выезд до ' + ads.offer.checkout || 'no value';
     cardElement.querySelector('.popup__description').textContent = ads.offer.description;
 
 
@@ -96,6 +96,13 @@
     closeButton.addEventListener('click', popupCloseMousedownHandler);
 
     document.addEventListener('keydown', popupCloseEscHandler);
+
+    var childEliments = cardElement.querySelectorAll(':scope > *');
+    childEliments.forEach(function (element) {
+      if (element.textContent === 'no value') {
+        element.classList.add('visually-hidden');
+      }
+    });
 
     return cardElement;
   };
@@ -125,5 +132,7 @@
   window.card = {
     popupCloseEscHandler: popupCloseEscHandler,
     renderCard: renderCard,
+    closeCard: closeCard,
+    getCard: getCard,
   };
 })();
