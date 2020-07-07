@@ -3,7 +3,6 @@
   var mapFilters = document.querySelector('.map__filters');
   var mapPinMain = document.querySelector('.map__pin--main');
 
-
   var form = window.form.adForm;
 
   var successPostHandler = function () {
@@ -18,7 +17,6 @@
     window.backend.save(new FormData(form), successPostHandler, errorPostHandler);
     evt.preventDefault();
   };
-  form.addEventListener('submit', submitHandler);
 
   var limits = {
     top: window.map.MAP_TOP_Y - window.mode.PIN_MAIN_HEIGHT,
@@ -81,12 +79,13 @@
 
   };
 
+  form.addEventListener('submit', submitHandler);
   mapPinMain.addEventListener('mousedown', mouseDownHandler);
 
 
   window.main = {
     mapFilters: mapFilters,
-    mapPinMain: mapPinMain,
+    mapPinMain: mapPinMain
   };
 })();
 

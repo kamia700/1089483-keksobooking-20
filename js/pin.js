@@ -10,16 +10,15 @@
   };
 
   var mapPinMain = document.querySelector('.map__pin--main');
+  var similarPinTemplate = document.querySelector('#pin')
+  .content
+  .querySelector('.map__pin');
+  var pinMap = document.querySelector('.map__pins');
+
   var setPinMainDefoltCoords = function () {
     mapPinMain.style.left = mainPinDefault.x + 'px';
     mapPinMain.style.top = mainPinDefault.y + 'px';
   };
-
-  var similarPinTemplate = document.querySelector('#pin')
-.content
-.querySelector('.map__pin');
-
-  var pinMap = document.querySelector('.map__pins');
 
   var renderPin = function (ads) {
     var pinElement = similarPinTemplate.cloneNode(true);
@@ -62,6 +61,6 @@
   window.pin = {
     addPins: addPins,
     setPinMainDefoltCoords: setPinMainDefoltCoords,
-    removePins: removePins,
+    removePins: removePins
   };
 })();

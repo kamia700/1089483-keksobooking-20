@@ -1,12 +1,13 @@
 'use strict';
 (function () {
-  var StatusCode = {
-    OK: 200
-  };
   var TIMEOUT_IN_MS = 10000;
 
   var URL_GET = 'https://javascript.pages.academy/keksobooking/data';
   var URL_POST = 'https://javascript.pages.academy/keksobooking';
+
+  var StatusCode = {
+    OK: 200
+  };
 
   var newXhr = function (onLoad, onError) {
     var xhr = new XMLHttpRequest();

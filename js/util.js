@@ -48,6 +48,6 @@
     isEscEvent: isEscEvent,
     isEnterEvent: isEnterEvent,
     isLeftButtonEvent: isLeftButtonEvent,
-    getMultipleRandomElements: getMultipleRandomElements,
+    getMultipleRandomElements: getMultipleRandomElements
   };
 })();

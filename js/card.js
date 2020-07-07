@@ -7,7 +7,7 @@
 
   var filtersContainer = window.map.map.querySelector('.map__filters-container');
 
-  var housingTypes = {
+  var housingType = {
     palace: 'Дворец',
     flat: 'Квартира',
     house: 'Дом',
@@ -77,7 +77,7 @@
     cardElement.querySelector('.popup__title').textContent = ads.offer.title || 'no value';
     cardElement.querySelector('.popup__text--address').textContent = ads.offer.address || 'no value';
     cardElement.querySelector('.popup__text--price').textContent = ads.offer.price + '₽/ночь' || 'no value';
-    cardElement.querySelector('.popup__type').textContent = housingTypes[ads.offer.type] || 'no value';
+    cardElement.querySelector('.popup__type').textContent = housingType[ads.offer.type] || 'no value';
     cardElement.querySelector('.popup__text--capacity').textContent = generateCorrectText(ads.offer.rooms, ads.offer.guests) || 'no value';
     cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + ads.offer.checkin + ', выезд до ' + ads.offer.checkout || 'no value';
     cardElement.querySelector('.popup__description').textContent = ads.offer.description;

@@ -6,7 +6,7 @@
   var Y_TOP = 130;
   var Y_BOTTOM = 630;
 
-  var TYPE = ['palace', 'flat', 'house', 'bungalo'];
+  var TYPES = ['palace', 'flat', 'house', 'bungalo'];
 
   var CHECKIN = ['12:00', '13:00', '14:00'];
   var CHECKOUT = ['12:00', '13:00', '14:00'];
@@ -21,6 +21,8 @@
   var ROOMS = ['1', '2', '3 ', '100'];
   var GUESTS = ['1', '2', '3 '];
 
+  var pinMap = document.querySelector('.map__pins');
+  var pinMapWidth = pinMap.offsetWidth;
 
   var getRandomFeatures = function (features) {
     var rendomFeatureNumbers = window.util.getRandomIntInclusive(1, FEATURES.length);
@@ -35,9 +37,6 @@
     return features.slice(0, rendomFeatureNumbers);
   };
 
-  var pinMap = document.querySelector('.map__pins');
-  var pinMapWidth = pinMap.offsetWidth;
-
   var createAds = function (count) {
     var locationX = window.util.getRandomIntInclusive(0, pinMapWidth);
     var locationY = window.util.getRandomIntInclusive(Y_TOP, Y_BOTTOM);
@@ -49,7 +48,7 @@
         title: 'Просторная уютная квартира',
         address: locationX + ', ' + locationY,
         price: 2000,
-        type: window.util.getRandomElement(TYPE),
+        type: window.util.getRandomElement(TYPES),
         rooms: window.util.getRandomElement(ROOMS),
         guests: window.util.getRandomElement(GUESTS),
         checkin: window.util.getRandomElement(CHECKIN),
@@ -72,8 +71,8 @@
   };
 
   window.data = {
+    ELEMENTS_NUMBER: ELEMENTS_NUMBER,
     getOffers: getOffers,
-    createAds: createAds,
-    ELEMENTS_NUMBER: ELEMENTS_NUMBER
+    createAds: createAds
   };
 })();

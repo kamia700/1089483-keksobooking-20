@@ -1,47 +1,36 @@
 'use strict';
 
 (function () {
-  var offersArray = [];
+
   var mapFilters = document.querySelector('.map__filters');
   var housingType = mapFilters.querySelector('#housing-type');
 
 
-  var updateOffers = function (value) {
-    window.pin.removePins();
-    var filteredOffers;
-    if (value === 'any') {
-      filteredOffers = offersArray;
-
-    } else {
-      filteredOffers = offersArray.filter(function (it) {
-        return it.offer.type === value;
-      });
-    }
-    // var offers = window.data.getOffers(filteredOffers);
-    // window.pin.addPins(offers);
-
-    window.pin.addPins(filteredOffers);
+  var getHouisingType = function (value) {
+    return housingType.value === 'any' ? true : value.offer.type === housingType.value;
   };
 
+  var allFilters = function (data) {
+    return data.filter(function (it) {
+      return getHouisingType(it);
+    }).slice(0, 5);
+  };
 
   var typeChangeHandler = function () {
+    window.pin.removePins();
     window.card.closeCard();
-    updateOffers(housingType.value);
+
+    window.pin.addPins(allFilters(window.offersArray));
   };
 
-  housingType.addEventListener('change', typeChangeHandler);
+  mapFilters.addEventListener('change', typeChangeHandler);
 
-  var successGetHandler = function (data) {
-    offersArray = data;
-    updateOffers(housingType.value);
-  };
 
   window.filter = {
-    updateOffers: updateOffers,
     housingType: housingType,
-
-    successGetHandler: successGetHandler,
-    offersArray: offersArray
+    // updateOffers: updateOffers,
+    // successGetHandler: successGetHandler,
+    allFilters: allFilters
   };
 
 })();

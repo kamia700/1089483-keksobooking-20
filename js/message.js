@@ -8,6 +8,8 @@
   var errorText = errorTemplate.cloneNode(true);
 
   var mainBlock = document.querySelector('main');
+
+
   var showMessage = function (result) {
     switch (result) {
       case 'success':
@@ -42,6 +44,6 @@
 
   window.message = {
     closeMessage: closeMessage,
-    showMessage: showMessage,
+    showMessage: showMessage
   };
 })();
