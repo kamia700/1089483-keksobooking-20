@@ -39,10 +39,6 @@
   };
 
   var addPins = function (offers) {
-    // var takeNumber = offers.length > window.data.ELEMENTS_NUMBER ? window.data.ELEMENTS_NUMBER : offers.length;
-    // for (var i = 0; i < takeNumber; i++) {
-    //   pinMap.appendChild(renderPin(offers[i]));
-    // }
     var multipleRandomElements = window.data.getOffers(offers);
     for (var i = 0; i < multipleRandomElements.length; i++) {
       if (offers[i].offer) {
