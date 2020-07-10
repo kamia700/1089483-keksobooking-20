@@ -52,14 +52,14 @@
   };
 
   var getCorrectWordFormRooms = function (number) {
-    if (number === '1') {
+    if (number === 1) {
       return 'a';
     }
     return (number >= 2 && number <= 4) ? 'ы' : '';
   };
 
   var getCorrectWordFormGuest = function (number) {
-    return number === '1' ? 'я' : 'ей';
+    return number === 1 ? 'я' : 'ей';
   };
 
   var generateCorrectText = function (rooms, guests) {
