@@ -7,8 +7,7 @@
   var mapPinMain = document.querySelector('.map__pin--main');
   var adForm = document.querySelector('.ad-form');
   var mapFilters = document.querySelector('.map__filters');
-  var form = window.form.adForm;
-  var formResetButton = form.querySelector('.ad-form__reset');
+  var formResetButton = adForm.querySelector('.ad-form__reset');
 
   var activeMode = true;
 
@@ -42,14 +41,15 @@
     document.body.insertAdjacentElement('afterbegin', node);
   };
 
-  var setDisabledPageMode = function () {
+  var deactivatePage = function () {
     activeMode = false;
     window.form.setCoordinates(getCoordinateX(mapPinMain), getCoordinateY(mapPinMain));
-    window.map.map.classList.add('map--faded');
+    window.map.block.classList.add('map--faded');
     adForm.classList.add('ad-form--disabled');
     window.form.disableFields();
-    window.pin.removePins();
-    window.card.closeCard();
+    window.pin.remove();
+    window.card.close();
+    window.upload.removeImages();
     mapPinMain.addEventListener('mousedown', mapPinMainMousedownHandler);
     mapPinMain.addEventListener('keydown', mapPinMainKeydownHandler);
   };
@@ -59,7 +59,7 @@
     adForm.classList.remove('ad-form--disabled');
     window.form.activateFields();
     mapFilters.removeAttribute('disabled');
-    window.map.activateMap(window.map.map);
+    window.map.activate(window.map.block);
     window.form.setCoordinates(getCoordinateX(mapPinMain), getCoordinateY(mapPinMain));
     window.backend.load(successGetHandler, errorGetHandler);
   };
@@ -76,8 +76,9 @@
 
   var pageReset = function () {
     adForm.reset();
-    window.pin.setPinMainDefoltCoords();
+    window.pin.setMainPinDefoltCoords();
     window.form.setCoordinates(getCoordinateX(mapPinMain), getCoordinateY(mapPinMain));
+    window.upload.removeImages();
   };
 
   mapPinMain.addEventListener('mousedown', mapPinMainMousedownHandler);
@@ -86,17 +87,17 @@
   formResetButton.addEventListener('click', pageReset);
   formResetButton.addEventListener('keydown', pageReset);
 
-  setDisabledPageMode();
+  deactivatePage();
 
 
   window.mode = {
     PIN_MAIN_HEIGHT: PIN_MAIN_HEIGHT,
-    activeMode: activeMode,
+    activate: activeMode,
 
     getCoordinateY: getCoordinateY,
     getCoordinateX: getCoordinateX,
 
-    setDisabledPageMode: setDisabledPageMode,
+    deactivatePage: deactivatePage,
     pageReset: pageReset
   };
 })();

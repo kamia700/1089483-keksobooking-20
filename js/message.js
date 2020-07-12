@@ -31,11 +31,11 @@
     if (successText && evt.keyCode === 27 || evt.button === 0) {
       successText.remove();
       window.mode.pageReset();
-      window.mode.setDisabledPageMode();
+      window.mode.deactivatePage();
     } if (errorText && evt.keyCode === 27 || evt.button === 0) {
       errorText.remove();
       window.mode.pageReset();
-      window.mode.setDisabledPageMode();
+      window.mode.deactivatePage();
     }
     document.removeEventListener('click', closeMessage);
     document.removeEventListener('keydown', closeMessage);
@@ -43,7 +43,7 @@
 
 
   window.message = {
-    closeMessage: closeMessage,
-    showMessage: showMessage
+    close: closeMessage,
+    show: showMessage
   };
 })();

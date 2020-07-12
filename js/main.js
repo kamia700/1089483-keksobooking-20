@@ -3,30 +3,30 @@
   var mapFilters = document.querySelector('.map__filters');
   var mapPinMain = document.querySelector('.map__pin--main');
 
-  var form = window.form.adForm;
+  var adForm = document.querySelector('.ad-form');
 
   var successPostHandler = function () {
-    window.message.showMessage('success');
+    window.message.show('success');
   };
 
   var errorPostHandler = function () {
-    window.message.showMessage('error');
+    window.message.show('error');
   };
 
   var submitHandler = function (evt) {
-    window.backend.save(new FormData(form), successPostHandler, errorPostHandler);
+    window.backend.save(new FormData(adForm), successPostHandler, errorPostHandler);
     evt.preventDefault();
   };
 
   var limits = {
-    top: window.map.MAP_TOP_Y - window.mode.PIN_MAIN_HEIGHT,
-    bottom: window.map.MAP_BOTTOM_Y - window.mode.PIN_MAIN_HEIGHT,
+    top: window.map.TOP_Y - window.mode.PIN_MAIN_HEIGHT,
+    bottom: window.map.BOTTOM_Y - window.mode.PIN_MAIN_HEIGHT,
     left: -Math.round(mapPinMain.offsetWidth / 2),
-    right: window.map.map.offsetWidth - Math.round(mapPinMain.offsetWidth / 2),
+    right: window.map.block.offsetWidth - Math.round(mapPinMain.offsetWidth / 2),
   };
 
   var mouseDownHandler = function (evt) {
-    window.mode.activeMode = true;
+    window.mode.activate = true;
     var pinCoords = {
       x: window.mode.getCoordinateX(mapPinMain),
       y: window.mode.getCoordinateY(mapPinMain)
@@ -79,7 +79,7 @@
 
   };
 
-  form.addEventListener('submit', submitHandler);
+  adForm.addEventListener('submit', submitHandler);
   mapPinMain.addEventListener('mousedown', mouseDownHandler);
 
 

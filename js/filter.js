@@ -60,9 +60,9 @@
     }).slice(0, 5);
   };
 
-  var filterChangeHandler = window.debounce.setDebounce(function () {
-    window.pin.removePins();
-    window.card.closeCard();
+  var filterChangeHandler = window.debounce.set(function () {
+    window.pin.remove();
+    window.card.close();
 
     var filtration = allFilters(window.offersArray);
     window.pin.addPins(filtration);

@@ -129,7 +129,6 @@
   address.setAttribute('readonly', 'readonly');
 
   window.form = {
-    adForm: adForm,
     setCoordinates: setCoordinates,
     disableFields: disableFields,
     activateFields: activateFields

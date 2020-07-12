@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+  var AVATAR_DEFAULT = 'img/muffin-grey.svg';
   var FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
   var ImageSize = {
@@ -49,6 +50,16 @@
     return newImg;
   };
 
+  var removeImages = function () {
+    previewAvatar.src = AVATAR_DEFAULT;
+    if (previewPhoto) {
+      var newImages = document.querySelectorAll('.ad-form__photo');
+      newImages.forEach(function (it) {
+        it.remove();
+      });
+    }
+  };
+
   var changeAvatarHandler = function () {
     upload(fileChooserAvatar, previewAvatar);
   };
@@ -59,4 +70,8 @@
 
   fileChooserAvatar.addEventListener('change', changeAvatarHandler);
   fileChooserPhoto.addEventListener('change', changePhotoHandler);
+
+  window.upload = {
+    removeImages: removeImages
+  };
 })();
