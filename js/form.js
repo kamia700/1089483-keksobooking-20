@@ -108,16 +108,22 @@
     }
   };
 
+
   var changeBorder = function (input, borderColor) {
     input.style.border = borderColor;
   };
 
-  adFormTitleInput.addEventListener('invalid', function () {
+  var changeBorderTitleHandler = function () {
     changeBorder(adFormTitleInput, BORDER_ERROR_RED);
-  });
-  adFormPriceInput.addEventListener('invalid', function () {
+  };
+
+  var changeBorderPriceHandler = function () {
     changeBorder(adFormPriceInput, BORDER_ERROR_RED);
-  });
+  };
+
+  adFormTitleInput.addEventListener('invalid', changeBorderTitleHandler);
+  adFormPriceInput.addEventListener('invalid', changeBorderPriceHandler);
+
 
   roomsSelect.addEventListener('change', roomsInputHandler);
 

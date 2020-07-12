@@ -60,12 +60,24 @@
     }).slice(0, 5);
   };
 
+  var resetFilter = function () {
+    var filterItems = mapFilters.querySelectorAll('select');
+    filterItems.forEach(function (it) {
+      it.value = 'any';
+    });
+
+    var filterFeatures = mapFilters.querySelectorAll('input');
+    filterFeatures.forEach(function (feature) {
+      feature.checked = false;
+    });
+  };
+
   var filterChangeHandler = window.debounce.set(function () {
     window.pin.remove();
     window.card.close();
 
     var filtration = allFilters(window.offersArray);
-    window.pin.addPins(filtration);
+    window.pin.add(filtration);
   });
 
   mapFilters.addEventListener('change', filterChangeHandler);
@@ -73,6 +85,7 @@
 
   window.filter = {
     housingType: housingType,
+    reset: resetFilter,
     allFilters: allFilters
   };
 

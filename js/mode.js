@@ -26,7 +26,7 @@
 
   var successGetHandler = function (data) {
     window.offersArray = data;
-    window.pin.addPins(window.filter.allFilters(window.offersArray));
+    window.pin.add(window.filter.allFilters(window.offersArray));
   };
 
   var errorGetHandler = function (errorMessage) {
@@ -79,6 +79,8 @@
     window.pin.setMainPinDefoltCoords();
     window.form.setCoordinates(getCoordinateX(mapPinMain), getCoordinateY(mapPinMain));
     window.upload.removeImages();
+    window.filter.reset();
+    deactivatePage();
   };
 
   mapPinMain.addEventListener('mousedown', mapPinMainMousedownHandler);
