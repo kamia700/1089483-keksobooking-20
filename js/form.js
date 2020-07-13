@@ -1,8 +1,6 @@
 'use strict';
 
 (function () {
-  var BORDER_ERROR_RED = '3px solid red';
-
   var PRICE_MIN_VALUE = {
     'bungalo': 0,
     'flat': 1000,
@@ -107,23 +105,6 @@
       timeIn.value = timeOut.value;
     }
   };
-
-
-  var changeBorder = function (input, borderColor) {
-    input.style.border = borderColor;
-  };
-
-  var changeBorderTitleHandler = function () {
-    changeBorder(adFormTitleInput, BORDER_ERROR_RED);
-  };
-
-  var changeBorderPriceHandler = function () {
-    changeBorder(adFormPriceInput, BORDER_ERROR_RED);
-  };
-
-  adFormTitleInput.addEventListener('invalid', changeBorderTitleHandler);
-  adFormPriceInput.addEventListener('invalid', changeBorderPriceHandler);
-
 
   roomsSelect.addEventListener('change', roomsInputHandler);
 
