@@ -12,9 +12,9 @@
 
 
   window.map = {
-    map: map,
-    MAP_TOP_Y: MAP_TOP_Y,
-    MAP_BOTTOM_Y: MAP_BOTTOM_Y,
-    activateMap: activateMap
+    block: map,
+    TOP_Y: MAP_TOP_Y,
+    BOTTOM_Y: MAP_BOTTOM_Y,
+    activate: activateMap
   };
 })();

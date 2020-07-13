@@ -1,8 +1,6 @@
 'use strict';
 
 (function () {
-  var BORDER_ERROR_RED = '3px solid red';
-
   var PRICE_MIN_VALUE = {
     'bungalo': 0,
     'flat': 1000,
@@ -108,17 +106,6 @@
     }
   };
 
-  var changeBorder = function (input, borderColor) {
-    input.style.border = borderColor;
-  };
-
-  adFormTitleInput.addEventListener('invalid', function () {
-    changeBorder(adFormTitleInput, BORDER_ERROR_RED);
-  });
-  adFormPriceInput.addEventListener('invalid', function () {
-    changeBorder(adFormPriceInput, BORDER_ERROR_RED);
-  });
-
   roomsSelect.addEventListener('change', roomsInputHandler);
 
   adFormTitleInput.addEventListener('input', titleInputHandler);
@@ -129,7 +116,6 @@
   address.setAttribute('readonly', 'readonly');
 
   window.form = {
-    adForm: adForm,
     setCoordinates: setCoordinates,
     disableFields: disableFields,
     activateFields: activateFields

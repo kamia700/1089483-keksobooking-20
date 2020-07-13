@@ -18,7 +18,7 @@
   };
 
   window.debounce = {
-    setDebounce: setDebounce
+    set: setDebounce
   };
 
 })();

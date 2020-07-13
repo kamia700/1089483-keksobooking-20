@@ -5,7 +5,7 @@
   var HEIGHT_PHOTO_CARD = 40;
   var PHOTO_ALT_CARD = 'Фотография жилья';
 
-  var filtersContainer = window.map.map.querySelector('.map__filters-container');
+  var filtersContainer = window.map.block.querySelector('.map__filters-container');
 
   var housingType = {
     palace: 'Дворец',
@@ -20,7 +20,7 @@
 
   var renderCard = function (ads) {
     closeCard();
-    window.map.map.insertBefore(getCard(ads), filtersContainer);
+    window.map.block.insertBefore(getCard(ads), filtersContainer);
   };
 
   var renderPhotos = function (container, photos) {
@@ -113,7 +113,6 @@
     if (mapCardPopup) {
       mapCardPopup.remove();
     }
-
   };
 
   var popupCloseMousedownHandler = function (evt) {
@@ -131,8 +130,8 @@
 
   window.card = {
     popupCloseEscHandler: popupCloseEscHandler,
-    renderCard: renderCard,
-    closeCard: closeCard,
-    getCard: getCard,
+    render: renderCard,
+    close: closeCard,
+    get: getCard,
   };
 })();

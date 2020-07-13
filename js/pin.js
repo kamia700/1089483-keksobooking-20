@@ -15,7 +15,7 @@
   .querySelector('.map__pin');
   var pinMap = document.querySelector('.map__pins');
 
-  var setPinMainDefoltCoords = function () {
+  var setMainPinDefoltCoords = function () {
     mapPinMain.style.left = mainPinDefault.x + 'px';
     mapPinMain.style.top = mainPinDefault.y + 'px';
   };
@@ -33,7 +33,7 @@
     pinImg.alt = ads.offer.title;
 
     pinElement.addEventListener('click', function () {
-      window.card.renderCard(ads);
+      window.card.render(ads);
     });
     return pinElement;
   };
@@ -55,8 +55,8 @@
   };
 
   window.pin = {
-    addPins: addPins,
-    setPinMainDefoltCoords: setPinMainDefoltCoords,
-    removePins: removePins
+    add: addPins,
+    setMainPinDefoltCoords: setMainPinDefoltCoords,
+    remove: removePins
   };
 })();
