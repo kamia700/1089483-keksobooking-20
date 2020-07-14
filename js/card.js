@@ -131,7 +131,6 @@
   window.card = {
     popupCloseEscHandler: popupCloseEscHandler,
     render: renderCard,
-    close: closeCard,
-    get: getCard,
+    close: closeCard
   };
 })();

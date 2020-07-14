@@ -106,6 +106,21 @@
     }
   };
 
+  var changeBorderHandler = function () {
+    var inputs = Array.from(adForm.querySelectorAll('input:invalid:not(:placeholder-shown)'));
+    var selects = Array.from(adForm.querySelectorAll('select:invalid:not(:placeholder-shown)'));
+
+    inputs.forEach(function (element) {
+      element.classList.add('validation-error');
+    });
+    selects.forEach(function (element) {
+      element.classList.add('validation-error');
+    });
+    adFormTitleInput.removeEventListener('invalid', changeBorderHandler);
+  };
+
+  adFormTitleInput.addEventListener('invalid', changeBorderHandler);
+
   roomsSelect.addEventListener('change', roomsInputHandler);
 
   adFormTitleInput.addEventListener('input', titleInputHandler);
