@@ -4,13 +4,12 @@
   var PIN_MAIN_HEIGHT = 85;
   var PIN_MAIN_SHIFT_Y = Math.round(PIN_MAIN_HEIGHT / 2);
 
+  var activeMode = true;
+
   var mapPinMain = document.querySelector('.map__pin--main');
   var adForm = document.querySelector('.ad-form');
   var mapFilters = document.querySelector('.map__filters');
   var formResetButton = adForm.querySelector('.ad-form__reset');
-
-  var activeMode = true;
-
 
   var getCoordinateX = function (pin) {
     return Math.round(pin.offsetLeft + PIN_MAIN_WIDTH / 2);
@@ -74,7 +73,7 @@
     mapPinMain.removeEventListener('keydown', mapPinMainKeydownHandler);
   };
 
-  var pageReset = function () {
+  var resetPage = function () {
     adForm.reset();
     window.pin.setMainPinDefoltCoords();
     window.form.setCoordinates(getCoordinateX(mapPinMain), getCoordinateY(mapPinMain));
@@ -86,8 +85,8 @@
   mapPinMain.addEventListener('mousedown', mapPinMainMousedownHandler);
   mapPinMain.addEventListener('keydown', mapPinMainKeydownHandler);
 
-  formResetButton.addEventListener('click', pageReset);
-  formResetButton.addEventListener('keydown', pageReset);
+  formResetButton.addEventListener('click', resetPage);
+  formResetButton.addEventListener('keydown', resetPage);
 
   deactivatePage();
 
@@ -100,6 +99,7 @@
     getCoordinateX: getCoordinateX,
 
     deactivatePage: deactivatePage,
-    pageReset: pageReset
+    setActivedPageMode: setActivedPageMode,
+    resetPage: resetPage
   };
 })();

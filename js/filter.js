@@ -50,7 +50,7 @@
     });
   };
 
-  var allFilters = function (data) {
+  var getAllFilters = function (data) {
     return data.filter(function (it) {
       return getHouisingType(it) &&
             getPriceRange(it) &&
@@ -76,7 +76,7 @@
     window.pin.remove();
     window.card.close();
 
-    var filtration = allFilters(window.offersArray);
+    var filtration = getAllFilters(window.offersArray);
     window.pin.add(filtration);
   });
 
@@ -86,7 +86,7 @@
   window.filter = {
     housingType: housingType,
     reset: resetFilter,
-    allFilters: allFilters
+    allFilters: getAllFilters
   };
 
 })();

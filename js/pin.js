@@ -39,19 +39,16 @@
   };
 
   var addPins = function (offers) {
-    var multipleRandomElements = window.data.getOffers(offers);
-    for (var i = 0; i < multipleRandomElements.length; i++) {
-      if (offers[i].offer) {
-        pinMap.appendChild(renderPin(offers[i]));
-      }
-    }
+    offers.forEach(function (pin) {
+      pinMap.appendChild(renderPin(pin));
+    });
   };
 
   var removePins = function () {
     var pins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
-    for (var j = 0; j < pins.length; j++) {
-      pins[j].remove();
-    }
+    pins.forEach(function (item) {
+      item.remove();
+    });
   };
 
   window.pin = {

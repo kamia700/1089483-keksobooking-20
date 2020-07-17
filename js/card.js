@@ -5,8 +5,6 @@
   var HEIGHT_PHOTO_CARD = 40;
   var PHOTO_ALT_CARD = 'Фотография жилья';
 
-  var filtersContainer = window.map.block.querySelector('.map__filters-container');
-
   var housingType = {
     palace: 'Дворец',
     flat: 'Квартира',
@@ -14,6 +12,7 @@
     bungalo: 'Бунгало',
   };
 
+  var filtersContainer = window.map.block.querySelector('.map__filters-container');
   var cardTemplate = document.querySelector('#card')
   .content
   .querySelector('.map__card');
@@ -26,29 +25,28 @@
   var renderPhotos = function (container, photos) {
     container.innerHTML = '';
 
-    for (var i = 0; i < photos.length; i++) {
+    photos.forEach(function (item) {
       var photoElement = document.createElement('img');
-      photoElement.src = photos[i];
+      photoElement.src = item;
       photoElement.classList.add('popup__photo');
       photoElement.width = WIDTH_PHOTO_CARD;
       photoElement.height = HEIGHT_PHOTO_CARD;
       photoElement.alt = PHOTO_ALT_CARD;
 
       container.appendChild(photoElement);
-    }
+    });
   };
 
   var renderFeatures = function (container, features) {
     container.innerHTML = '';
 
-    for (var i = 0; i < features.length; i++) {
+    features.forEach(function (item) {
       var featureElement = document.createElement('li');
-
       featureElement.classList.add('popup__feature');
-      featureElement.classList.add('popup__feature--' + features[i]);
+      featureElement.classList.add('popup__feature--' + item);
 
       container.appendChild(featureElement);
-    }
+    });
   };
 
   var getCorrectWordFormRooms = function (number) {
@@ -73,6 +71,10 @@
 
   var getCard = function (ads) {
     var cardElement = cardTemplate.cloneNode(true);
+    var cardFeatures = cardElement.querySelector('.popup__features');
+    var cardPhotos = cardElement.querySelector('.popup__photos');
+    var closeButton = cardElement.querySelector('.popup__close');
+    var childElements = cardElement.querySelectorAll(':scope > *');
 
     cardElement.querySelector('.popup__title').textContent = ads.offer.title || 'no value';
     cardElement.querySelector('.popup__text--address').textContent = ads.offer.address || 'no value';
@@ -82,31 +84,22 @@
     cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + ads.offer.checkin + ', выезд до ' + ads.offer.checkout || 'no value';
     cardElement.querySelector('.popup__description').textContent = ads.offer.description;
 
-
-    var cardFeatures = cardElement.querySelector('.popup__features');
-    cardFeatures.innerHTML = '';
-    renderFeatures(cardFeatures, ads.offer.features);
-
-    var cardPhotos = cardElement.querySelector('.popup__photos');
-    renderPhotos(cardPhotos, ads.offer.photos);
-
     cardElement.querySelector('.popup__avatar').src = ads.author.avatar;
 
-    var closeButton = cardElement.querySelector('.popup__close');
-    closeButton.addEventListener('click', popupCloseMousedownHandler);
+    renderFeatures(cardFeatures, ads.offer.features);
+    renderPhotos(cardPhotos, ads.offer.photos);
 
-    document.addEventListener('keydown', popupCloseEscHandler);
-
-    var childEliments = cardElement.querySelectorAll(':scope > *');
-    childEliments.forEach(function (element) {
+    childElements.forEach(function (element) {
       if (element.textContent === 'no value') {
         element.classList.add('visually-hidden');
       }
     });
 
+    closeButton.addEventListener('click', popupCloseMousedownHandler);
+    document.addEventListener('keydown', popupCloseEscHandler);
+
     return cardElement;
   };
-
 
   var closeCard = function () {
     var mapCardPopup = document.querySelector('.map__card');

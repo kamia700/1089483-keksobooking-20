@@ -5,19 +5,6 @@
 
   var adForm = document.querySelector('.ad-form');
 
-  var successPostHandler = function () {
-    window.message.show('success');
-  };
-
-  var errorPostHandler = function () {
-    window.message.show('error');
-  };
-
-  var submitHandler = function (evt) {
-    window.backend.save(new FormData(adForm), successPostHandler, errorPostHandler);
-    evt.preventDefault();
-  };
-
   var limits = {
     top: window.map.TOP_Y - window.mode.PIN_MAIN_HEIGHT,
     bottom: window.map.BOTTOM_Y - window.mode.PIN_MAIN_HEIGHT,
@@ -78,6 +65,20 @@
     document.addEventListener('mouseup', mouseUpHandler);
 
   };
+
+  var successPostHandler = function () {
+    window.message.show('success');
+  };
+
+  var errorPostHandler = function () {
+    window.message.show('error');
+  };
+
+  var submitHandler = function (evt) {
+    window.backend.save(new FormData(adForm), successPostHandler, errorPostHandler);
+    evt.preventDefault();
+  };
+
 
   adForm.addEventListener('submit', submitHandler);
   mapPinMain.addEventListener('mousedown', mouseDownHandler);

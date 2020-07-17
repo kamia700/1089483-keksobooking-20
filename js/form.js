@@ -25,15 +25,17 @@
   var timefieldset = noticeBlock.querySelector('.ad-form__element--time');
 
   var disableElements = function (element) {
-    for (var i = 0; i < element.length; i++) {
-      element[i].setAttribute('disabled', 'disabled');
-    }
+    var elementList = Array.from(element);
+    elementList.forEach(function (item) {
+      item.setAttribute('disabled', 'disabled');
+    });
   };
 
   var activateElements = function (element) {
-    for (var i = 0; i < element.length; i++) {
-      element[i].removeAttribute('disabled');
-    }
+    var elementList = Array.from(element);
+    elementList.forEach(function (item) {
+      item.removeAttribute('disabled');
+    });
   };
 
   var disableFields = function () {
@@ -57,13 +59,13 @@
 
   var roomsInputHandler = function () {
     if (roomsSelect.value !== '100' && guestsSelect.value === '0') {
-      roomsSelect.setCustomValidity('Пожалуйста, укажите количество гостей');
+      guestsSelect.setCustomValidity('Пожалуйста, укажите количество гостей');
     } else if (roomsSelect.value !== '100' && roomsSelect.value < guestsSelect.value) {
-      roomsSelect.setCustomValidity('Количество комнат не может быть меньше количества гостей');
+      guestsSelect.setCustomValidity('Количество комнат не может быть меньше количества гостей');
     } else if (roomsSelect.value === '100' && guestsSelect.value > '0') {
-      roomsSelect.setCustomValidity('Размещение гостей невозможно для выбранного количества комнат');
+      guestsSelect.setCustomValidity('Размещение гостей невозможно для выбранного количества комнат');
     } else {
-      roomsSelect.setCustomValidity('');
+      guestsSelect.setCustomValidity('');
     }
   };
 
@@ -119,16 +121,17 @@
     adFormTitleInput.removeEventListener('invalid', changeBorderHandler);
   };
 
+  address.setAttribute('readonly', 'readonly');
   adFormTitleInput.addEventListener('invalid', changeBorderHandler);
 
   roomsSelect.addEventListener('change', roomsInputHandler);
+  guestsSelect.addEventListener('change', roomsInputHandler);
+  timefieldset.addEventListener('change', timeSyncHandler);
+  adFormTypeInput.addEventListener('change', typeInputHandler);
 
   adFormTitleInput.addEventListener('input', titleInputHandler);
-  adFormTypeInput.addEventListener('input', typeInputHandler);
   adFormPriceInput.addEventListener('input', priceInputHandler);
-  timefieldset.addEventListener('change', timeSyncHandler);
 
-  address.setAttribute('readonly', 'readonly');
 
   window.form = {
     setCoordinates: setCoordinates,

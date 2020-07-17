@@ -9,7 +9,7 @@
     OK: 200
   };
 
-  var newXhr = function (onLoad, onError) {
+  var createNewXhr = function (onLoad, onError) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
 
@@ -33,14 +33,14 @@
   };
 
   var load = function (onLoad, onError) {
-    var xhr = newXhr(onLoad, onError);
+    var xhr = createNewXhr(onLoad, onError);
 
     xhr.open('GET', URL_GET);
     xhr.send();
   };
 
   var save = function (data, onLoad, onError) {
-    var xhr = newXhr(onLoad, onError);
+    var xhr = createNewXhr(onLoad, onError);
 
     xhr.open('POST', URL_POST);
     xhr.send(data);
