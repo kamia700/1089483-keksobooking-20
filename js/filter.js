@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+  var ELEMENTS_NUMBER = 5;
 
   var mapFilters = document.querySelector('.map__filters');
   var housingType = mapFilters.querySelector('#housing-type');
@@ -51,13 +52,20 @@
   };
 
   var getAllFilters = function (data) {
-    return data.filter(function (it) {
-      return getHouisingType(it) &&
-            getPriceRange(it) &&
-            getHouisingRooms(it) &&
-            getHouisingGuests(it) &&
-            getHouisingFeatures(it);
-    }).slice(0, 5);
+    var filteredPins = [];
+    var i = 0;
+    while (i < data.length && filteredPins.length < ELEMENTS_NUMBER) {
+      var newPin = data[i];
+      if (getHouisingType(newPin) &&
+          getPriceRange(newPin) &&
+          getHouisingRooms(newPin) &&
+          getHouisingGuests(newPin) &&
+          getHouisingFeatures(newPin)) {
+        filteredPins.push(data[i]);
+      }
+      i++;
+    }
+    return filteredPins;
   };
 
   var resetFilter = function () {

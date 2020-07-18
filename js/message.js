@@ -13,18 +13,19 @@
     switch (result) {
       case 'success':
         document.body.appendChild(successText);
+        window.mode.resetPage();
         break;
       case 'error':
         mainBlock.appendChild(errorText);
         var errorButton = document.querySelector('.error__button');
-        errorButton.addEventListener('click', closeMessage);
+        errorButton.addEventListener('click', messageСloseHandler);
         break;
     }
-    document.addEventListener('click', closeMessage);
-    document.addEventListener('keydown', closeMessage);
+    document.addEventListener('click', messageСloseHandler);
+    document.addEventListener('keydown', messageСloseHandler);
   };
 
-  var closeMessage = function (evt) {
+  var messageСloseHandler = function (evt) {
     var error = document.querySelector('.error');
     var success = document.querySelector('.success');
 
@@ -35,15 +36,13 @@
     } else
     if (success && (evt.keyCode === 27 || evt.button === 0)) {
       successText.remove();
-      window.mode.resetPage();
     }
-    document.removeEventListener('click', closeMessage);
-    document.removeEventListener('keydown', closeMessage);
+    document.removeEventListener('click', messageСloseHandler);
+    document.removeEventListener('keydown', messageСloseHandler);
   };
 
-
   window.message = {
-    close: closeMessage,
+    close: messageСloseHandler,
     show: showMessage
   };
 })();

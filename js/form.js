@@ -39,7 +39,6 @@
   };
 
   var disableFields = function () {
-    disableElements(adFieldsets);
     disableElements(adInputs);
     disableElements(adSelects);
     disableElements(mapFilters);

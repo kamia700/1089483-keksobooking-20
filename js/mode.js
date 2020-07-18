@@ -18,9 +18,8 @@
   var getCoordinateY = function (pin) {
     if (activeMode) {
       return pin.offsetTop + PIN_MAIN_HEIGHT;
-    } else {
-      return pin.offsetTop + PIN_MAIN_SHIFT_Y;
     }
+    return pin.offsetTop + PIN_MAIN_SHIFT_Y;
   };
 
   var successGetHandler = function (data) {
